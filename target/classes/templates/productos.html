@@ -1,0 +1,13 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8"/>
+</head>
+<body>
+ 	<img th:src="${product.img}"/>
+ 	<p th:text="|Nombre: ${product.name}|"/>
+ 	<p th:text="|Descripcion del producto: ${product.description}|"/>
+ 	<p th:text="|Por solo: ${product.price}|"/>
+ 	<input type="button" value="Añadir al Carrito" onclick="addBasket()"/>
+ 	<a href="/">Volver</a>
+</body>
+</html>
