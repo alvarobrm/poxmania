@@ -23,7 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class PoxmaniaController {
 	
 	private static final String FILES_FOLDER = "files";
-	private List<String> imageTitles = new ArrayList<>();
+	private List<Product> cart = new ArrayList<>();
 	
 	@Autowired
 	private CustomerRepository repository; 
@@ -38,56 +38,7 @@ public class PoxmaniaController {
 		return new ModelAndView("index").addObject("products", repository.findAll());
 	}
 
-	@RequestMapping(value = "/image/upload", method = RequestMethod.POST)
-	public ModelAndView handleFileUpload(
-			@RequestParam("imageTitle") String imageTitle,
-			@RequestParam("file") MultipartFile file) {
-
-		String fileName = imageTitles.size() + ".jpg";
-
-		if (!file.isEmpty()) {
-			try {
-
-				File filesFolder = new File(FILES_FOLDER);
-				if (!filesFolder.exists()) {
-					filesFolder.mkdirs();
-				}
-
-				File uploadedFile = new File(filesFolder.getAbsolutePath(), fileName);
-				file.transferTo(uploadedFile);
-
-				imageTitles.add(imageTitle);
-				
-				return new ModelAndView("index").addObject(
-						"imageTitles", imageTitles);
-
-			} catch (Exception e) {
-				return new ModelAndView("index").addObject("fileName",
-						fileName).addObject("error",
-						e.getClass().getName() + ":" + e.getMessage());
-			}
-		} else {
-			return new ModelAndView("index").addObject("error",
-					"The file is empty");
-		}
-	}
-
-	@RequestMapping("/image/{fileName}")
-	public void handleFileDownload(@PathVariable String fileName,
-			HttpServletResponse res) throws FileNotFoundException, IOException {
-
-		File file = new File(FILES_FOLDER, fileName);
-
-		if (file.exists()) {
-			res.setContentType("image/jpeg");
-			res.setContentLength(new Long(file.length()).intValue());
-			FileCopyUtils
-					.copy(new FileInputStream(file), res.getOutputStream());
-		} else {
-			res.sendError(404, "File" + fileName + "(" + file.getAbsolutePath()
-					+ ") does not exist");
-		}
-	}
+	
 	
 	@RequestMapping("/productos") 
 	public ModelAndView iteration(@RequestParam long idproduct) {
