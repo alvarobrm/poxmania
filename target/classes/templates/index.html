@@ -7,16 +7,17 @@
 </head>
 <body>
 
-	
-		<img src="/img/pixmania.jpg" height="80px" width="300px"/>
+	<div class="row">
+		<img class="col-lg-7" src="/img/pixmania.jpg" style=' max-width: 300px' />
 		
-		<form action="search" method="post">
+		<form class="col-lg-4" action="search" method="post">
 		
 			<input type="text" name="busqueda" value="¿Qué está buscando?"/> 
 			<input type="submit" value="Buscar"/>
 		</form>
 		
-		<input type="button" value="Carrito" th:href="@{/cart}"/>
+		<input class="col-lg-1" type="button" value="Carrito" th:href="@{/cart}"/>
+	</div>
 		
 		<nav id="barra-menu" class="navbar navbar-default hidden-md hidden-sm">
             <div class="container-fluid">
