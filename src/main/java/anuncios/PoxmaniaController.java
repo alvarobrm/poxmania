@@ -23,7 +23,9 @@ import org.springframework.web.servlet.ModelAndView;
 public class PoxmaniaController {
 	
 	private static final String FILES_FOLDER = "files";
-	private List<Product> cart = new ArrayList<>();
+	
+	@Autowired
+	private User user;
 	
 	@Autowired
 	private CustomerRepository repository; 
@@ -39,6 +41,13 @@ public class PoxmaniaController {
 	}
 
 	
+	@RequestMapping("/add") 
+	public ModelAndView addToCart(@RequestParam long idproduct) {
+		Product product= repository.findOne(idproduct);
+		user.addToCart(p1);
+		int numProd= user.CartSize();
+		return new ModelAndView("index").addObject("products", repository.findAll()).addObject("numProd", numProd);
+	}
 	
 	@RequestMapping("/productos") 
 	public ModelAndView iteration(@RequestParam long idproduct) {

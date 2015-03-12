@@ -1,32 +1,75 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8"/>
-	<script src="addBasket.js"></script>
 	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet"/>
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 </head>
 <body>
-		<h1>Poxmania.com</h1>
+
+	
+		<img src="/img/pixmania.jpg" height="80px" width="300px"/>
+		
+		<form action="search" method="post">
+		
+			<input type="text" name="busqueda" value="¿Qué está buscando?"/> 
+			<input type="submit" value="Buscar"/>
+		</form>
+		
+		<input type="button" value="Carrito" th:href="@{/cart}"/>
+		
+		<nav id="barra-menu" class="navbar navbar-default hidden-md hidden-sm">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li ><a href="">Inicio</a></li>
+                            <li class="vertical hidden-xs"></li>
+                            <li><a href="">Pequeño electrodomestico</a> </li>
+                            <li class="vertical hidden-xs"></li>
+                            <li><a href="">Televisores</a> </li>
+                            <li class="vertical hidden-xs"></li>
+                            <li><a href="">Videoconsola</a> </li>
+                            
+                            <li class="vertical hidden-xs"></li>
+                        </ul>
+                    </div>
+                    
+                </div>
+            </div>
+        </nav>
+		
+		<p>tu carrito tiene: </p><p th:text="${numProd}">1</p>
 		<br></br>
-		<div class="row">
-			<div class="col-lg-3">
-				<div class="btn-group-vertical" role="group" aria-label="...">
-					<button type="button" class="btn btn-default">Pequeño Electrodomestico</button>
-					<button type="button" class="btn btn-default">Televisores</button>
-					<button type="button" class="btn btn-default">Videoconsolas</button>
-				</div>
+		<div class="row ">
+			<div class="col-md-3 col-sm-3 hidden-xs hidden-lg">
+				<ul class="nav nav-pills nav-stacked">
+					<li role="presentation" class="active"><a href="#">Inicio</a></li>
+					<li role="presentation"><a href="">Pequeño electrodomestico</a></li>
+					<li role="presentation" ><a href="">Televisores</a></li>
+					<li role="presentation"><a href="">Videoconsola</a></li>
+				</ul>
 			</div>
-			
-			<div class="col-lg-9">
-					
-					<p th:each="product: ${products}" > 
-						<a th:href="@{/productos(idproduct=${product.id})}"> <img th:src="${product.img}" height="80px" width="80px"/></a>
-				 		<a th:href="@{/productos(idproduct=${product.id})}" th:text="|${product.name} |" > subject name</a>
-				 		<a th:href="@{/productos(idproduct=${product.id})}" th:text="|${product.price}|" > subject name</a>
-				 		<input type="button" value="Añadir al Carrito" action=""/>
-				 	</p><br/>
+			<div class="col-md-9 col-sm-9 col-lg-12">
+					<div th:each="product: ${products}" > 
+						<div class="panel panel-default">
+	  						<div class="panel-body">
+								<a th:href="@{/productos(idproduct=${product.id})}"> <img th:src="${product.img}" height="80px" width="80px"/></a>
+					 			<a th:href="@{/productos(idproduct=${product.id})}" th:text="|${product.name} |" > subject name</a>
+					 			<a th:href="@{/productos(idproduct=${product.id})}" th:text="|${product.price}|" > subject name</a>
+					 			<input type="button" value="Añadir al Carrito" th:href="@{/add(idproduct=${product.id})}"/>
+					 		</div>
+						</div>
+				 	</div>
 			</div>
 		</div>
+		
 </body>
 </html>
